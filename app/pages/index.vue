@@ -48,7 +48,7 @@ function openAsAPIResponse() {
   <div class="space-y-8">
     <div class="grid grid-cols-2 gap-6">
       <div
-        class="[&>pre]:p-6 [&>pre]:rounded-lg col-span-2"
+        class="[&>pre]:p-4 [&>pre]:rounded-lg col-span-2"
         v-html="codePreview"
       />
       <UTextarea
