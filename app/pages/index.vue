@@ -1,47 +1,82 @@
 <script lang="ts" setup>
-import type { BundledLanguage } from 'shiki'
+import type { BundledLanguage, BundledTheme } from 'shiki'
 import { bundledLanguages, bundledThemes, createHighlighter } from 'shiki'
 
+const route = useRoute()
+const shikiThemes = Object.keys(bundledThemes)
+const shikiLangs = Object.keys(bundledLanguages)
+
+const { copy, copied } = useClipboard()
+
 const highlighter = await createHighlighter({
-  themes: Object.keys(bundledThemes),
-  langs: Object.keys(bundledLanguages),
+  themes: shikiThemes,
+  langs: shikiLangs,
 })
 
-const code = ref('const a = 1;')
-const lang = ref<BundledLanguage>('js')
-const theme = ref('dracula')
+const code = ref(
+  route.query.code
+    ? decode(route.query.code as string)
+    : 'console.log(\'Hello, world!\');',
+)
+const lang = ref<BundledLanguage>(
+  shikiLangs.includes(route.query.lang as string)
+    ? (route.query.lang as BundledLanguage)
+    : 'js',
+)
+const theme = ref(
+  shikiThemes.includes(route.query.theme as string)
+    ? (route.query.theme as BundledTheme)
+    : 'dracula',
+)
 
 const codePreview = computed(() => highlighter.codeToHtml(code.value, {
   lang: lang.value,
   theme: theme.value,
 }))
-const encodedCode = computed(() => btoa(
-  new TextEncoder().encode(code.value)
-    .reduce((data, byte) => data + String.fromCharCode(byte), ''),
-))
+
+const encodedCode = computed(() => encode(code.value))
+function copyUrl() {
+  copy(`${window.location.origin}/?lang=${lang.value}&theme=${theme.value}&code=${encodedCode.value}`)
+}
 </script>
 
 <template>
-  <div>
-    <div
-      class="[&>pre]:p-6 [&>pre]:rounded-lg"
-      v-html="codePreview"
-    />
-    <UTextarea v-model="code" />
-    <USelectMenu
-      v-model="lang"
-      :items="Object.keys(bundledLanguages)"
-      class="w-48"
-    />
-    <USelectMenu
-      v-model="theme"
-      :items="Object.keys(bundledThemes)"
-      class="w-48"
-    />
-    <p>Get it via API: </p>
-    <a
-      target="_blank"
-      :href="`/api/image/code?lang=${lang}&theme=${theme}&code=${encodedCode}`"
-    >Visit</a>
+  <div class="space-y-8">
+    <div class="grid grid-cols-2 gap-6">
+      <div
+        class="[&>pre]:p-6 [&>pre]:rounded-lg col-span-2"
+        v-html="codePreview"
+      />
+      <UTextarea
+        v-model="code"
+        class="w-full col-span-2"
+        :rows="6"
+      />
+      <USelectMenu
+        v-model="lang"
+        :items="Object.keys(bundledLanguages)"
+        class="w-48"
+      />
+      <USelectMenu
+        v-model="theme"
+        :items="Object.keys(bundledThemes)"
+        class="w-48"
+      />
+    </div>
+    <div class="space-x-6 space-y-6">
+      <UButton
+        :icon="copied ? 'lucide:check' : 'lucide:clipboard'"
+        @click="copyUrl"
+      >
+        Copy URL
+      </UButton>
+      <UButton
+        trailing-icon="lucide:external-link"
+        :href="`/api/image/code?lang=${lang}&theme=${theme}&code=${encodedCode}`"
+        target="_blank"
+      >
+        Get as API Response
+      </UButton>
+    </div>
   </div>
 </template>

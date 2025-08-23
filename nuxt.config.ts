@@ -14,6 +14,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/scripts',
     '@nuxt/ui',
-    'nuxt-shiki'
-  ]
+    'nuxt-shiki',
+    '@vueuse/nuxt',
+  ],
 })
