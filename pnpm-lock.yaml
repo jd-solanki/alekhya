@@ -30,8 +30,8 @@ importers:
         specifier: 0.3.1
         version: 0.3.1(magicast@0.3.5)
       shiki-image:
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.3
+        version: 0.1.3
       typescript:
         specifier: ^5.9.2
         version: 5.9.2
@@ -4874,8 +4874,8 @@ packages:
     resolution: {integrity: sha512-ObmnIF4hXNg1BqhnHmgbDETF8dLPCggZWBjkQfhZpbszZnYur5DUljTcCHii5LC3J5E0yeO/1LIMyH+UvHQgyw==}
     engines: {node: '>= 0.4'}
 
-  shiki-image@0.1.1:
-    resolution: {integrity: sha512-2QTCNpgpHGE7JZKe8ACXeirc1FY6aMqHlZvfPxbh4uIM7o7tlYN8cO7QjHdwA5MEvIYLOg9jSLEqP9GWyszgjg==}
+  shiki-image@0.1.3:
+    resolution: {integrity: sha512-LvuOqCw2cZak9WYAMl4ZPX8oR3cu9CBatwMXG++6kKsMb4Jc43dXUjvxNZqLOvBnVvfz9ds/Rlxa3jtUEUXq/g==}
 
   shiki@3.11.0:
     resolution: {integrity: sha512-VgKumh/ib38I1i3QkMn6mAQA6XjjQubqaAYhfge71glAll0/4xnt8L2oSuC45Qcr/G5Kbskj4RliMQddGmy/Og==}
@@ -11221,7 +11221,7 @@ snapshots:
 
   shell-quote@1.8.3: {}
 
-  shiki-image@0.1.1:
+  shiki-image@0.1.3:
     dependencies:
       '@takumi-rs/core': 0.27.2
       '@takumi-rs/helpers': 0.27.2

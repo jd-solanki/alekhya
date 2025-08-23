@@ -2,7 +2,7 @@ import type { BundledLanguage, BundledTheme } from 'shiki'
 import { Buffer } from 'node:buffer'
 import { Renderer } from '@takumi-rs/core'
 import { bundledLanguages, bundledThemes, createHighlighter } from 'shiki'
-import { codeToImageCore } from 'shiki-image/core'
+import { codeToImageCore, loadFont } from 'shiki-image/core'
 import { createOnigurumaEngine } from 'shiki/engine/oniguruma'
 
 const shikiThemes = Object.keys(bundledThemes)
@@ -10,25 +10,6 @@ const shikiLangs = Object.keys(bundledLanguages)
 
 const DEFAULT_FONT
   = 'https://fonts.bunny.net/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2'
-
-export async function loadFont(font: string | ArrayBuffer | undefined) {
-  let fontData: ArrayBuffer
-  if (!font) {
-    font = DEFAULT_FONT
-  }
-  if (typeof font === 'string') {
-    const fontCache: Map<string, ArrayBuffer> = ((
-      globalThis as any
-    ).__shikiImageFontCache__ ||= new Map())
-    fontData
-      = fontCache.get(font) || (await fetch(font).then(r => r.arrayBuffer()))
-    fontCache.set(font, fontData)
-  }
-  else {
-    fontData = font
-  }
-  return fontData
-}
 
 export default defineEventHandler(async (event) => {
   // Get code from query parameters, with fallback to default
