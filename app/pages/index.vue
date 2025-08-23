@@ -71,44 +71,47 @@ const { copy: copyPageUrl, copied: isPageURLCopied } = useClipboard({ source: ()
 </script>
 
 <template>
-  <div class="space-y-8">
-    <header class="space-y-2 grid grid-cols-2 align-middle">
+  <div class="space-y-6">
+    <header class="space-y-2 grid grid-cols-2 align-middle mb-8">
       <h1 class="text-3xl font-semibold">
         🖼️ Alekhya
       </h1>
-      <ProgrammaticUsageInstructions
-        :highlighter
-        :theme
+      <UButton
+        label="View Programmatic Usage"
+        color="neutral"
+        trailing-icon="lucide:circle-question-mark"
+        variant="subtle"
+        href="https://github.com/jd-solanki/alekhya/blob/main/README.md#-retrieve-code-image-via-api"
+        target="_blank"
+        rel="noopener noreferrer"
         class="place-self-end"
       />
       <p class="text-muted">
         Get code snippets as image via API
       </p>
     </header>
-    <div class="grid grid-cols-2 gap-6">
-      <div
-        class="[&>pre]:p-4 [&>pre]:rounded-lg col-span-2"
-        v-html="codePreview"
+    <div
+      class="[&>pre]:p-4 [&>pre]:rounded-lg col-span-2 [&>pre]:overflow-auto"
+      v-html="codePreview"
+    />
+    <UTextarea
+      v-model="code"
+      class="w-full col-span-2"
+      :rows="6"
+    />
+    <div class="space-x-6">
+      <USelectMenu
+        :model-value="lang"
+        :items="shikiLangs"
+        class="w-48"
+        @update:model-value="onLangSelect"
       />
-      <UTextarea
-        v-model="code"
-        class="w-full col-span-2"
-        :rows="6"
+      <USelectMenu
+        :model-value="theme"
+        :items="shikiThemes"
+        class="w-48"
+        @update:model-value="onThemeSelect"
       />
-      <div>
-        <USelectMenu
-          :model-value="lang"
-          :items="shikiLangs"
-          class="w-48"
-          @update:model-value="onLangSelect"
-        />
-        <USelectMenu
-          :model-value="theme"
-          :items="shikiThemes"
-          class="w-48"
-          @update:model-value="onThemeSelect"
-        />
-      </div>
     </div>
     <div class="flex items-center gap-6">
       <UButton

@@ -66,22 +66,17 @@ Prototype for generating code images from text using Shiki and Nuxt 4. As a USP 
 
   Use any of your preferred tools to make API call to above URL
 
-### Why
+#### Supported query params
+
+- `code`: The base64 encoded code to generate an image for.
+- `lang`: The programming language of the code (e.g., js, python). ([View all Supported languages](https://shiki.style/languages))
+- `theme`: The theme to use for the code image (e.g., dracula, github). ([View all Supported themes](https://shiki.style/themes))
+
+## Why
 
 - You can generate code snippet in your build pipeline or automation
 - Directly render various code snippets as image in your docs
 - _Add PR for your ideas_ 😜
-
-### Supported query params
-
-- `code`: The base64 encoded code to generate an image for.
-- `lang`: The programming language of the code (e.g., js, python).
-- `theme`: The theme to use for the code image (e.g., dracula, github).
-
-### Supported languages & themes
-
-- Check [shiki's supported languages](https://shiki.style/languages) for a full list of supported languages.
-- Check [shiki's supported themes](https://shiki.style/themes) for a full list of supported themes.
 
 ## 🎯 Goal
 
