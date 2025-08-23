@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   const theme = query.theme || 'dracula'
   const lang = query.lang || 'js'
-  const encodedCode = (query.code as string) || 'console.log("hello, world!");'
+  const encodedCode = (query.code as string) || 'Y29uc29sZS5sb2coJ0hlbGxvLCB3b3JsZCEnKTs='
   const code = Buffer.from(encodedCode, 'base64').toString('utf-8')
 
   // Generate the code image

@@ -38,6 +38,10 @@ const encodedCode = computed(() => encode(code.value))
 function copyUrl() {
   copy(`${window.location.origin}/?lang=${lang.value}&theme=${theme.value}&code=${encodedCode.value}`)
 }
+
+function openAsAPIResponse() {
+  window.open(`${window.location.origin}/api/image/code?lang=${lang.value}&theme=${theme.value}&code=${encodedCode.value}`)
+}
 </script>
 
 <template>
@@ -63,7 +67,7 @@ function copyUrl() {
         class="w-48"
       />
     </div>
-    <div class="space-x-6 space-y-6">
+    <div class="flex items-center gap-6">
       <UButton
         :icon="copied ? 'lucide:check' : 'lucide:clipboard'"
         @click="copyUrl"
@@ -72,8 +76,7 @@ function copyUrl() {
       </UButton>
       <UButton
         trailing-icon="lucide:external-link"
-        :href="`/api/image/code?lang=${lang}&theme=${theme}&code=${encodedCode}`"
-        target="_blank"
+        @click="openAsAPIResponse"
       >
         Get as API Response
       </UButton>
