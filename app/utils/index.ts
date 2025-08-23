@@ -4,6 +4,7 @@ export function encode(code: string) {
       .reduce((data, byte) => data + String.fromCharCode(byte), ''),
   )
 }
+
 export function decode(encodedCode: string) {
   return new TextDecoder().decode(
     new Uint8Array(

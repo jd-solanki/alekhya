@@ -6,23 +6,65 @@ Prototype for generating code images from text using Shiki and Nuxt 4. As a USP 
 
 ## 🌐 Retrieve Code Image via API
 
-```ts
-import { Buffer } from 'node:buffer'
+### 1. Encode your code
 
-const complexCode = `
-function fibonacci(n) {
-  if (n <= 1) return n;
-  return fibonacci(n - 1) + fibonacci(n - 2);
-}
+  <details>
+  <summary>Node</summary>
 
-console.log(fibonacci(10));
-`
+  ```js
+  import { Buffer } from 'node:buffer'
 
-const encoded = Buffer.from(complexCode).toString('base64')
+  const code = 'console.log("Hello World!")'
+  const encoded = Buffer.from(code).toString('base64')
+  ```
 
-// 🏗️ Production domain WIP. You can use it with local clone.
-console.log(`https://alekhya.com/api/image/code?code=${encoded}&lang=js`)
-```
+  </details>
+
+  <details>
+  <summary>JavaScript (Browser)</summary>
+
+  ```js
+  const code = 'console.log("Hello World!")'
+  const encoded = btoa(
+    new TextEncoder().encode(code).reduce(
+      (data, byte) => data + String.fromCharCode(byte),
+      ''
+    )
+  )
+  ```
+
+  </details>
+
+  <details>
+  <summary>Python</summary>
+
+  ```py
+  import base64
+
+  code = 'console.log("Hello World!")'
+  encoded = base64.b64encode(code.encode()).decode()
+  ```
+
+  </details>
+
+  <details>
+  <summary>Other</summary>
+
+  ```plaintext
+  take raw code → convert to bytes → encode as Base64
+  ```
+
+  </details>
+
+### 2. Craft URL
+
+  ```plaintext
+  https://getalekhya.netlify.app/api/image/code?code=<encodedCode>&lang=<yourLang>
+  ```
+
+### 3. Make API Request
+
+  Use any of your preferred tools to make API call to above URL
 
 ### Why
 

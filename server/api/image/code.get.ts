@@ -1,5 +1,4 @@
 import type { BundledLanguage, BundledTheme } from 'shiki'
-import { Buffer } from 'node:buffer'
 import { Renderer } from '@takumi-rs/core'
 import { bundledLanguages, bundledThemes, createHighlighter } from 'shiki'
 import { codeToImageCore, loadFont } from 'shiki-image/core'
@@ -21,8 +20,8 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Invalid language' })
   }
 
-  const encodedCode = (query.code as string) || 'Y29uc29sZS5sb2coJ0hlbGxvLCB3b3JsZCEnKTs='
-  const code = Buffer.from(encodedCode, 'base64').toString('utf-8')
+  const encodedCode = (query.code as string) || encode(DEFAULT_CODE)
+  const code = decode(encodedCode)
 
   const highlighter = await createHighlighter({
     themes: [theme],

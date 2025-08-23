@@ -28,6 +28,7 @@
     "@iconify-json/lucide": "^1.2.63",
     "@types/node": "^24.3.0",
     "eslint-plugin-regex": "^1.10.0",
-    "tsx": "^4.20.4"
+    "tsx": "^4.20.4",
+    "type-fest": "^4.41.0"
   }
 }

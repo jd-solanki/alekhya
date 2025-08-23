@@ -2,8 +2,6 @@
 import type { BundledLanguage, BundledTheme } from 'shiki'
 import { bundledLanguages, bundledThemes, createHighlighter } from 'shiki'
 
-const { copy, copied } = useClipboard()
-
 const shikiThemes = Object.keys(bundledThemes) as BundledTheme[]
 const shikiLangs = Object.keys(bundledLanguages) as BundledLanguage[]
 
@@ -13,7 +11,7 @@ const route = useRoute()
 const code = ref(
   route.query.code
     ? decode(route.query.code as string)
-    : 'console.log(\'Hello, world!\');',
+    : DEFAULT_CODE,
 )
 const lang = ref<BundledLanguage>(
   shikiLangs.includes(route.query.lang as BundledLanguage)
@@ -30,8 +28,9 @@ const theme = ref(
 // SECTION Shiki Highlight
 const highlighter = await createHighlighter({
   themes: [theme.value],
-  langs: [lang.value],
+  langs: Array.from(new Set([lang.value, DEFAULT_LANGUAGE, 'python'])),
 })
+
 async function onLangSelect(selectedLang: BundledLanguage) {
   if (!highlighter.getLoadedLanguages().includes(selectedLang)) {
     await highlighter.loadLanguage(selectedLang)
@@ -58,11 +57,6 @@ const queryParams = computed(() => {
 })
 
 // NOTE: Use as func to avoid having missing `window` error on SSR
-function copyUrl() {
-  copy(`${window.location.origin}/?${queryParams.value}`)
-}
-
-// NOTE: Use as func to avoid having missing `window` error on SSR
 function openAsAPIResponse() {
   window.open(`${window.location.origin}/api/image/code?${queryParams.value}`)
 }
@@ -72,10 +66,25 @@ const codePreview = computed(() => highlighter.codeToHtml(code.value, {
   lang: lang.value,
   theme: theme.value,
 }))
+const { copy: copyAPIUrl, copied: isAPIURLCopied } = useClipboard({ source: () => `${window.location.origin}/api/image/code?${queryParams.value}` })
+const { copy: copyPageUrl, copied: isPageURLCopied } = useClipboard({ source: () => `${window.location.origin}?${queryParams.value}` })
 </script>
 
 <template>
   <div class="space-y-8">
+    <header class="space-y-2 grid grid-cols-2 align-middle">
+      <h1 class="text-3xl font-semibold">
+        🖼️ Alekhya
+      </h1>
+      <ProgrammaticUsageInstructions
+        :highlighter
+        :theme
+        class="place-self-end"
+      />
+      <p class="text-muted">
+        Get code snippets as image via API
+      </p>
+    </header>
     <div class="grid grid-cols-2 gap-6">
       <div
         class="[&>pre]:p-4 [&>pre]:rounded-lg col-span-2"
@@ -103,16 +112,22 @@ const codePreview = computed(() => highlighter.codeToHtml(code.value, {
     </div>
     <div class="flex items-center gap-6">
       <UButton
-        :icon="copied ? 'lucide:check' : 'lucide:clipboard'"
-        @click="copyUrl"
+        :icon="isPageURLCopied ? 'lucide:check' : 'lucide:clipboard'"
+        @click="() => copyPageUrl()"
       >
-        Copy URL
+        Copy page URL
+      </UButton>
+      <UButton
+        :icon="isAPIURLCopied ? 'lucide:check' : 'lucide:clipboard'"
+        @click="() => copyAPIUrl()"
+      >
+        Copy API URL
       </UButton>
       <UButton
         trailing-icon="lucide:external-link"
         @click="openAsAPIResponse"
       >
-        Get as API Response
+        View as API Response
       </UButton>
     </div>
   </div>
