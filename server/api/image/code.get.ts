@@ -8,18 +8,15 @@ import { createOnigurumaEngine } from 'shiki/engine/oniguruma'
 const shikiThemes = Object.keys(bundledThemes)
 const shikiLangs = Object.keys(bundledLanguages)
 
-const DEFAULT_FONT
-  = 'https://fonts.bunny.net/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2'
-
 export default defineEventHandler(async (event) => {
   // Get code from query parameters, with fallback to default
   const query = getQuery(event)
 
-  const queryTheme = typeof query.theme === 'string' ? query.theme : 'dracula'
-  const theme = shikiThemes.includes(queryTheme) ? queryTheme as BundledTheme : 'dracula'
+  const queryTheme = typeof query.theme === 'string' ? query.theme : DEFAULT_THEME
+  const theme = shikiThemes.includes(queryTheme) ? queryTheme as BundledTheme : DEFAULT_THEME
 
   // const queryLang = query.lang || 'js'
-  const lang = typeof query.lang === 'string' ? query.lang : 'js'
+  const lang = typeof query.lang === 'string' ? query.lang : DEFAULT_LANGUAGE
   if (!shikiLangs.includes(lang)) {
     throw createError({ statusCode: 400, statusMessage: 'Invalid language' })
   }

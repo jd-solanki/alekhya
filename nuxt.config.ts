@@ -15,4 +15,16 @@ export default defineNuxtConfig({
     'nuxt-shiki',
     '@vueuse/nuxt',
   ],
+  imports: {
+    dirs: [
+      '../shared/constants.ts',
+    ],
+  },
+  nitro: {
+    imports: {
+      dirs: [
+        'shared/constants.ts',
+      ],
+    },
+  },
 })
