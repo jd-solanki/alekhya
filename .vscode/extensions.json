@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "exodiusstudios.comment-anchors",
+    "antfu.iconify",
+    "xabikos.javascriptsnippets",
+    "yoavbls.pretty-ts-errors",
+    "antfu.smart-clicks",
+    "dongido.sync-env",
+    "bradlc.vscode-tailwindcss",
+    "meganrogge.template-string-converter",
+    "vue.volar",
+    "matijao.vue-nuxt-snippets"
+  ]
+}
