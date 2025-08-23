@@ -12,17 +12,17 @@
   "dependencies": {
     "@nuxt/eslint": "1.9.0",
     "@nuxt/ui": "3.3.2",
-    "@unhead/vue": "^2.0.3",
+    "@unhead/vue": "^2.0.14",
     "@vueuse/nuxt": "13.7.0",
-    "eslint": "^9.0.0",
+    "eslint": "^9.34.0",
     "nuxt": "^4.0.3",
     "nuxt-shiki": "0.3.1",
-    "shiki-image": "^0.1.0",
-    "typescript": "^5.6.3",
-    "vue": "^3.5.18",
+    "shiki-image": "^0.1.1",
+    "typescript": "^5.9.2",
+    "vue": "^3.5.19",
     "vue-router": "^4.5.1"
   },
-  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0",
+  "packageManager": "pnpm@10.15.0",
   "devDependencies": {
     "@antfu/eslint-config": "^5.2.1",
     "@iconify-json/lucide": "^1.2.63",
