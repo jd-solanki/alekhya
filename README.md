@@ -20,6 +20,7 @@ console.log(fibonacci(10));
 
 const encoded = Buffer.from(complexCode).toString('base64')
 
+// 🏗️ Production domain WIP. You can use it with local clone.
 console.log(`https://alekhya.com/api/image/code?code=${encoded}&lang=js`)
 ```
 
