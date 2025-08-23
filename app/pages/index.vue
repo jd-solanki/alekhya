@@ -86,18 +86,20 @@ const codePreview = computed(() => highlighter.codeToHtml(code.value, {
         class="w-full col-span-2"
         :rows="6"
       />
-      <USelectMenu
-        :model-value="lang"
-        :items="shikiLangs"
-        class="w-48"
-        @update:model-value="onLangSelect"
-      />
-      <USelectMenu
-        :model-value="theme"
-        :items="shikiThemes"
-        class="w-48"
-        @update:model-value="onThemeSelect"
-      />
+      <div>
+        <USelectMenu
+          :model-value="lang"
+          :items="shikiLangs"
+          class="w-48"
+          @update:model-value="onLangSelect"
+        />
+        <USelectMenu
+          :model-value="theme"
+          :items="shikiThemes"
+          class="w-48"
+          @update:model-value="onThemeSelect"
+        />
+      </div>
     </div>
     <div class="flex items-center gap-6">
       <UButton
