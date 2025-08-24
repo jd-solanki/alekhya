@@ -72,7 +72,7 @@ const { copy: copyPageUrl, copied: isPageURLCopied } = useClipboard({ source: ()
 
 <template>
   <div class="space-y-6">
-    <header class="space-y-2 grid grid-cols-2 align-middle mb-8">
+    <header class="space-y-2 grid sm:grid-cols-2 align-middle mb-8">
       <h1 class="text-3xl font-semibold">
         🖼️ Alekhya
       </h1>
@@ -84,7 +84,7 @@ const { copy: copyPageUrl, copied: isPageURLCopied } = useClipboard({ source: ()
         href="https://github.com/jd-solanki/alekhya/blob/main/README.md#-retrieve-code-image-via-api"
         target="_blank"
         rel="noopener noreferrer"
-        class="place-self-end"
+        class="sm:place-self-end max-sm:place-self-start max-sm:mt-4 max-sm:row-start-3"
       />
       <p class="text-muted">
         Get code snippets as image via API
@@ -103,17 +103,17 @@ const { copy: copyPageUrl, copied: isPageURLCopied } = useClipboard({ source: ()
       <USelectMenu
         :model-value="lang"
         :items="shikiLangs"
-        class="w-48"
+        class="sm:w-48 w-36"
         @update:model-value="onLangSelect"
       />
       <USelectMenu
         :model-value="theme"
         :items="shikiThemes"
-        class="w-48"
+        class="sm:w-48 w-36"
         @update:model-value="onThemeSelect"
       />
     </div>
-    <div class="flex items-center gap-6">
+    <div class="flex flex-wrap items-center gap-6">
       <UButton
         :icon="isPageURLCopied ? 'lucide:check' : 'lucide:clipboard'"
         @click="() => copyPageUrl()"
